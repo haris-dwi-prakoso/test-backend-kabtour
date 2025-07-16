@@ -17,92 +17,10 @@ describe('TransactionController', () => {
       providers: [{
         provide: TransactionService,
         useValue: {
-          create: jest.fn().mockReturnValue({
-            success: true,
-            data: {
-              id: 1,
-              buyerId: 2,
-              ownerId: 1,
-              orders: [{
-                itemId: 1,
-                amount: 1
-              }],
-              total: 109.95,
-              status: 'pending',
-              rejectReason: null
-            },
-            message: "Transaction successfully created"
-          }),
-          findAll: jest.fn().mockReturnValue({
-            success: true,
-            data: [{
-              id: 1,
-              buyerId: 2,
-              ownerId: 1,
-              details: [{
-                item: {
-                  "id": 1,
-                  "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-                  "price": 109.95,
-                  "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-                  "category": "men's clothing",
-                  "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-                  "rating": {
-                    "rate": 3.9,
-                    "count": 120
-                  }
-                },
-                amount: 1
-              }],
-              total: 109.95,
-              status: 'pending',
-              rejectReason: null
-            }],
-            message: "Transactions successfully fetched"
-          }),
-          findOne: jest.fn().mockReturnValue({
-            success: true,
-            data: {
-              id: 1,
-              buyerId: 2,
-              ownerId: 1,
-              details: [{
-                item: {
-                  "id": 1,
-                  "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-                  "price": 109.95,
-                  "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-                  "category": "men's clothing",
-                  "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-                  "rating": {
-                    "rate": 3.9,
-                    "count": 120
-                  }
-                },
-                amount: 1
-              }],
-              total: 109.95,
-              status: 'pending',
-              rejectReason: null
-            },
-            message: "Transaction successfully fetched"
-          }),
-          update: jest.fn().mockReturnValue({
-            success: true,
-            data: {
-              id: 1,
-              buyerId: 2,
-              ownerId: 1,
-              orders: [{
-                itemId: 1,
-                amount: 1
-              }],
-              total: 109.95,
-              status: 'accepted',
-              rejectReason: null
-            },
-            message: "Transaction successfully created"
-          })
+          create: jest.fn(),
+          findAll: jest.fn(),
+          findOne: jest.fn(),
+          update: jest.fn()
         }
       }],
     }).compile();

@@ -5,6 +5,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 import { TestingDb } from '../db/db-test';
 import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm';
+import { TransactionStatus } from './entities/transaction.entity';
 
 describe('TransactionService', () => {
   let service: TransactionService;
@@ -34,12 +35,12 @@ describe('TransactionService', () => {
     backup.restore();
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+  // it('should be defined', () => {
+  //   expect(service).toBeDefined();
+  // });
 
   it('should create a transaction', async () => {
-    let newTransaction = await service.create({
+    let response = await service.create({
       buyerId: 2,
       ownerId: 1,
       orders: [{
@@ -47,15 +48,31 @@ describe('TransactionService', () => {
         amount: 1
       }]
     });
-    testId = newTransaction.data?.id ?? 0;
-    expect(newTransaction.success).toBe(true);
-    expect(newTransaction.data).toBeInstanceOf(Transaction);
-    expect(newTransaction.message).toBe("Transaction successfully created");
+    testId = response.data?.id ?? 0;
+    expect(response.success).toBe(true);
+    expect(response.data).toBeInstanceOf(Transaction);
+    expect(response.message).toBe("Transaction successfully created");
   });
 
   it('should fetch all transactions', async () => {
     let response = await service.findAll();
     expect(response.success).toBe(true);
     expect(response.data).toEqual(expect.any(Array));
+    expect(response.message).toBe("Transactions successfully fetched");
+  });
+
+  it('should fetch the specified transaction', async () => {
+    let response = await service.findOne(testId);
+    expect(response.success).toBe(true);
+    expect(response.data?.buyerId).toEqual(2);
+    expect(response.data?.ownerId).toEqual(1);
+    expect(response.message).toBe("Transaction successfully fetched");
+  });
+
+  it('should update the transaction status to accepted', async () => {
+    let response = await service.update(testId, { status: TransactionStatus.ACCEPTED });
+    expect(response.success).toBe(true);
+    expect(response.data?.status).toEqual(TransactionStatus.ACCEPTED);
+    expect(response.message).toBe("Transaction successfully updated");
   })
 });

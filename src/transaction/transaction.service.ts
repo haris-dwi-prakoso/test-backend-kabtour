@@ -148,7 +148,7 @@ export class TransactionService {
     return {
       success: true,
       data: await this.transactionRepo.save(transaction),
-      message: "Transaction successfully created"
+      message: "Transaction successfully updated"
     }
   }
 
