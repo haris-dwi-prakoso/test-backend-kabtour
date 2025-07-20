@@ -31,7 +31,7 @@ describe('TransactionService', () => {
     backup = db.backup();
   });
 
-  afterEach(() => {
+  afterAll(() => {
     backup.restore();
   });
 
